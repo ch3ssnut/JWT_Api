@@ -24,6 +24,7 @@ To run this project, install locally using composer:
 $ composer install
 $ docker-compose up -d
 $ symfony serve -d
+$ symfony console lexik:jwt:generate-keypair
 $ symfony console make:migration
 $ symfony console doctrine:migrations:migrate
 ```
