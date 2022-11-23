@@ -10,9 +10,39 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
+
 class ApiRegisterController extends AbstractController
 {
-    #[Route('/api/register', name: 'app_api_register')]
+    #[Route('/api/register', name: 'app_api_register', methods: ["POST"])]
+    /** 
+     * @Oa\RequestBody(
+     *      description="Input user data as username and password",
+     *      @Oa\JsonContent(
+     *          @Oa\Property(type="string",property="username"),
+     *          @Oa\Property(type="string",property="password"),
+     *      )
+     * )
+     * 
+     * 
+     * @OA\Response(
+     *      response= 200,
+     *      description= "User was created",
+     *      )
+     * )
+     *        
+     * @OA\Response(
+     *      response= 400,
+     *      description= "User already exists/Wrong credentials",
+     *      )
+     * )
+     *
+     * 
+     * 
+     * 
+     */
     public function index(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $hasher): JsonResponse
     {
         $registrationData = json_decode($request->getContent(), true);
