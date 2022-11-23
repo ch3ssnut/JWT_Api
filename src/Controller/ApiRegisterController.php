@@ -45,6 +45,7 @@ class ApiRegisterController extends AbstractController
      */
     public function index(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $hasher): JsonResponse
     {
+        // decodes JSON in request and creates user (if user doesn't already exists)
         $registrationData = json_decode($request->getContent(), true);
         
         if (array_key_exists('username', $registrationData)  && array_key_exists('password', $registrationData)) {

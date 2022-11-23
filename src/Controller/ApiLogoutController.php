@@ -31,11 +31,19 @@ class ApiLogoutController extends AbstractController
        *      description= "User was logged out and his refresh tokens were removed",
        *      )
        * )
+       * 
+       * @OA\Response(
+       *      response= 400,
+       *      description= "Token is expired/invalid",
+       *      )
+       * )
        */
     public function index(JWTTokenManagerInterface $jwt, TokenStorageInterface $tokenStorageInterface, EntityManagerInterface $entityManager): JsonResponse
     {
+        // decodes token to get username 
         $username = ($jwt->decode($tokenStorageInterface->getToken())['username']);
         
+        // and entityManager is used to fetch all refresh tokens where owner is current user, and deletes them. 
         $token = $entityManager->getRepository(RefreshToken::class)->findBy([
             "username" => $username,
         ]);
