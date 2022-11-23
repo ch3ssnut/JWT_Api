@@ -24,6 +24,8 @@ To run this project, install locally using composer:
 $ composer install
 $ docker-compose up -d
 $ symfony serve -d
+$ symfony console make:migration
+$ symfony console doctrine:migrations:migrate
 ```
 
 To check documentation go to:
